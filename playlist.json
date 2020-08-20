@@ -1,0 +1,12 @@
+[
+  {
+    "id": "clip1",
+    "type": "clip",
+    "duration": 300000
+  },
+  {
+    "id": "ad1",
+    "type": "ad",
+    "duration": 15000
+  }
+]

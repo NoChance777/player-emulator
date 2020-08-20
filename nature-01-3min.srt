@@ -1,0 +1,21 @@
+1
+00:00:01,000 --> 00:00:03,000
+Here we see a beautiful sunflower
+
+2
+00:00:05,000 --> 00:00:08,001
+There is a bee sitting on it
+
+3
+00:00:08,500 --> 00:00:12,000
+That is so cute!
+
+4
+00:00:13,000 --> 00:00:20,000
+- Let's talk about another flower 
+- that is equally beautiful 
+- and we could talk very long about
+
+5
+00:00:21,000 --> 00:00:26,000
+I just can't stop loving it!

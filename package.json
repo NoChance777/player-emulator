@@ -1,0 +1,25 @@
+{
+  "name": "interview",
+  "version": "1.0.0",
+  "description": "Task for an interview in player-team",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "lint": "eslint --ext js ."
+  },
+  "keywords": [
+    "PSD",
+    "Player",
+    "Interview"
+  ],
+  "author": "Sergei Gridasov",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.0.27",
+    "prettier": "^2.0.5"
+  },
+  "dependencies": {
+    "log-update": "^4.0.0",
+    "parse-ms": "^2.1.0"
+  }
+}
