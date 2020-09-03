@@ -55,7 +55,7 @@ interface PositionPayload {
   position: number /* current time position for the playlist */;
   content: {
     id: PlaylistItem['id'] /* id of the currently playing clip */;
-    position: number /* current time position for the clip, clips with the same id are considered as the same clip */;
+    position: number /* current time position for the clip, clips with the same id are considered as the one clip */;
   };
 }
 ```
