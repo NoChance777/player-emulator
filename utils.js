@@ -1,5 +1,6 @@
 module.exports.parseTime = function (timeString) {
   // 00:00.000 or 00:00:00.000 or 0:00:00.000
+  // eslint-disable-next-line no-useless-escape
   const results = /(?:(\d{1,}):)?(\d{2}):(\d{2})[\.,](\d{3})/g.exec(timeString);
   if (results == null) {
     return null;
