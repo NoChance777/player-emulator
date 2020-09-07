@@ -52,20 +52,27 @@ module.exports = ({
   const emitter = new EventEmitter();
   let state = createDefaultState();
   const setStatus = (value) => {
-    if (value === state.status) return;
-    state.status = value;
-    const clip = state.playlist[state.playlistIndex] || null;
-    emitter.emit(PlaybackEvents.status, clip, value);
+    try {
+      if (value === state.status) return;
+      state.status = value;
+      const clip = state.playlist[state.playlistIndex] || null;
+      emitter.emit(PlaybackEvents.status, null, value);
+    } catch (err) {
+      emitter.emit(PlaybackEvents.status, err, null);
+    }
   };
 
   const createRenderInterval = () => {
-    const formatDuration = (current, duration) => {
+    const formatDuration = (...durations) => {
       const pad = (num, len = 2) => String(num).padStart(len, '0');
       const str = (num) => {
         const { hours, minutes, seconds, milliseconds } = ms(num);
         return `${pad(hours)}:${pad(minutes)}:${pad(seconds)},${pad(milliseconds, 3)}`;
       };
-      return `[${str(current)}/${str(duration)}]`;
+      return `[${durations.reduce(
+        (acc, duration) => `${!acc ? '' : `${acc}/`}${str(duration)}`,
+        ''
+      )}]`;
     };
 
     const render = (lines) => {
@@ -81,43 +88,44 @@ module.exports = ({
     };
 
     return setInterval(() => {
-      const { playlist, playlistIndex, subtitles } = state;
+      try {
+        const { playlist, playlistIndex, subtitles } = state;
 
-      const { status } = state;
-      if (status !== PlaybackStatus.playing) return;
+        const { status } = state;
+        if (status !== PlaybackStatus.playing) return;
 
-      const clip = playlist[playlistIndex];
-      const position = state.position;
+        const clip = playlist[playlistIndex];
+        const position = state.position;
 
-      if (clip.start + clip.duration - position <= 0) {
-        if (playlistIndex < playlist.length - 1) {
-          state.playlistIndex++;
-        } else api.stop();
-      }
+        if (clip.start + clip.duration - position <= 0) {
+          if (playlistIndex < playlist.length - 1) {
+            state.playlistIndex++;
+          } else api.stop();
+        }
 
-      render([
-        '-'.repeat(SCREEN_WIDTH),
-        `Clip "${clip.id}" is ${status}`,
-        formatDuration(position, state.duration),
-        ...(subtitles || []),
-        '-'.repeat(SCREEN_WIDTH),
-      ]);
-      // clear current subtitles after rendering if mode is `clearAfterRender`
-      if (subtitlesShowingMode === SubtitleShowingMode.clearAfterRender) state.subtitles = [];
+        const contentPosition = state.playlist
+          .filter(({ id }, idx) => id === clip.id && idx < playlistIndex)
+          .reduce((d, c) => d + c.duration, position - clip.start);
 
-      const contentPosition = state.playlist
-        .filter(({ id }, idx) => id === clip.id && idx < playlistIndex)
-        .reduce((d, c) => d + c.duration, position - clip.start);
+        render([
+          '-'.repeat(SCREEN_WIDTH),
+          `Clip "${clip.id}" is ${status}`,
+          formatDuration(contentPosition, position, state.duration),
+          ...(subtitles || []),
+          '-'.repeat(SCREEN_WIDTH),
+        ]);
+        // clear current subtitles after rendering if mode is `clearAfterRender`
+        if (subtitlesShowingMode === SubtitleShowingMode.clearAfterRender) state.subtitles = [];
 
-      emitter.emit(PlaybackEvents.position, clip, {
-        position,
-        content: {
+        emitter.emit(PlaybackEvents.position, null, {
           id: clip.id,
           position: contentPosition,
-        },
-      });
+        });
 
-      state.position = position + Math.min(FRAME_RATE, clip.start + clip.duration - position);
+        state.position = position + Math.min(FRAME_RATE, clip.start + clip.duration - position);
+      } catch (err) {
+        emitter.emit(PlaybackEvents.position, err, null);
+      }
     }, FRAME_RATE);
   };
 
