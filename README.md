@@ -1,4 +1,4 @@
-## Video Player emulator based on NodeJS
+## 🎬 Video Player Emulator
 
 This is a dumb player emulator that does nothing but fires events. This project requires **NodeJS**. The main module returns a factory method for instantiating the player. For starting events flow you need to call `play` method with a playlist:
 
