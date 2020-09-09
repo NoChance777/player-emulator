@@ -25,23 +25,22 @@ Each playlist item has the following structure:
 
 ```typescript
 interface PlaylistItem {
-  id: string,
-  duration: number,
-  type?: string
+  id: string;
+  duration: number;
+  type?: string;
 }
-]);
 ```
 
 ### Player API
 
-| Method                 | Parameters                               | Description                                                                                                          |
-| ---------------------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `play(playlist)`       | Array&lt;PlaylistItem&gt; _(optional)_   | start playback with provided playlist, if a playlist is omitted and the player is on pause, playback will be resumed |
-| `pause()`              |                                          | pause playback and events flow                                                                                       |
-| `stop()`               |                                          | stop playback and restore initial state                                                                              |
-| `showSubtitles()`      | Array&lt;string&gt;, string              | show provided subtitles, if an array of strings are passed, subtitles will be rendered in multiline mode             |
-| `on(event, handler)`   | event: PlaybackEvents, handler: Function | register an event handler for the given type event                                                                   |
-| `once(event, handler)` | event: PlaybackEvents, handler: Function | register an one-time event handler for the given type event                                                          |
+| Method                     | Parameters                               | Description                                                                                                          |
+| -------------------------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `play(playlist)`           | Array&lt;PlaylistItem&gt; _(optional)_   | start playback with provided playlist, if a playlist is omitted and the player is on pause, playback will be resumed |
+| `pause()`                  |                                          | pause playback and events flow                                                                                       |
+| `stop()`                   |                                          | stop playback and restore initial state                                                                              |
+| `showSubtitles(subtitles)` | Array&lt;string&gt;, string              | show provided subtitles, if an array of strings are passed, subtitles will be rendered in multiline mode             |
+| `on(event, handler)`       | event: PlaybackEvents, handler: Function | register an event handler for the given type event                                                                   |
+| `once(event, handler)`     | event: PlaybackEvents, handler: Function | register an one-time event handler for the given type event                                                          |
 
 ### Playback Events
 
@@ -52,7 +51,10 @@ interface PlaylistItem {
 
 ```typescript
 interface PositionPayload {
-  id: PlaylistItem['id'] /* id of the currently playing clip */;
-  position: number /* current time position for the clip, clips with the same id are considered as the one clip */;
+  /* id of the currently playing clip */
+  id: PlaylistItem['id'];
+
+  /* current time position for the clip, clips with the same id are considered as the one clip */
+  position: number;
 }
 ```
