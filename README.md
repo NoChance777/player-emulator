@@ -16,18 +16,20 @@ player.play([
 ```
 
 The player's factory method can accept optional config object:
-| Option | Type | Description |
+| Option\* | Type | Description |
 | ------ | ---- | ----------- |
 |`shouldRender`|boolean| when `true` the player will render pseudo video in console |
 |`subtitlesShowingMode`| `'frame'` or `'permanent'`| set subtitle render mode, in `'frame'` mode subtitles will be displayed after a `showSubtitles` call and cleared for a next frame, in `'permanent'` mode the same subtitles will be rendered until they're cleared by calling `showSubtitles(null)` or other subtitles are provided.
+
+\*These options are not relevant for the task itself and were implemented only for debugging purposes.
 
 Each playlist item has the following structure:
 
 ```typescript
 interface PlaylistItem {
-  id: string;
+  id: string /* id of the clip */;
   duration: number;
-  type?: string;
+  type?: string /* type of the clip, currently this is only video or ad */;
 }
 ```
 
@@ -38,16 +40,16 @@ interface PlaylistItem {
 | `play(playlist)`           | Array&lt;PlaylistItem&gt; _(optional)_   | start playback with provided playlist, if a playlist is omitted and the player is on pause, playback will be resumed |
 | `pause()`                  |                                          | pause playback and events flow                                                                                       |
 | `stop()`                   |                                          | stop playback and restore initial state                                                                              |
-| `showSubtitles(subtitles)` | Array&lt;string&gt;, string              | show provided subtitles, if an array of strings are passed, subtitles will be rendered in multiline mode             |
+| `showSubtitles(subtitles)` | Array&lt;string&gt;, string              | show provided subtitles, if an array of strings is passed, subtitles will be rendered in multiline mode              |
 | `on(event, handler)`       | event: PlaybackEvents, handler: Function | register an event handler for the given type event                                                                   |
 | `once(event, handler)`     | event: PlaybackEvents, handler: Function | register an one-time event handler for the given type event                                                          |
 
 ### Playback Events
 
-| Event Type | Description                                                                   | Handler                                            |
-| ---------- | ----------------------------------------------------------------------------- | -------------------------------------------------- |
-| `status`   | Sent when playback changes a status                                           | (err: Error, status: string) =&gt; void;           |
-| `position` | Sent periodically to inform interested parties of progress playing the media. | (err: Error, payload: PositionPayload) =&gt; void; |
+| Event Type | Description                                                             | Handler                                            |
+| ---------- | ----------------------------------------------------------------------- | -------------------------------------------------- |
+| `status`   | Sent when playback changes a status                                     | (err: Error, status: string) =&gt; void;           |
+| `position` | Sent periodically to inform a subscriber of progress playing the media. | (err: Error, payload: PositionPayload) =&gt; void; |
 
 ```typescript
 interface PositionPayload {

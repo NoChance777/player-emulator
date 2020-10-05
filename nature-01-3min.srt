@@ -7,7 +7,7 @@ Here we see a beautiful sunflower
 There is a bee sitting on it
 
 3
-00:00:08,500 --> 00:00:12,000
+00:00:07,500 --> 00:00:12,000
 That is so cute!
 
 4
