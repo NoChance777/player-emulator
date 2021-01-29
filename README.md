@@ -40,7 +40,7 @@ interface PlaylistItem {
 | `play(playlist)`           | Array&lt;PlaylistItem&gt; _(optional)_   | start playback with provided playlist, if a playlist is omitted and the player is on pause, playback will be resumed |
 | `pause()`                  |                                          | pause playback and events flow                                                                                       |
 | `stop()`                   |                                          | stop playback and restore initial state                                                                              |
-| `showSubtitles(subtitles)` | Array&lt;string&gt;, string              | show provided subtitles, if an array of strings is passed, subtitles will be rendered in multiline mode              |
+| `showSubtitles(subtitles)` | Array&lt;string&gt;, string              | show provided subtitles, if an array of strings is passed, subtitles will be rendered in multiline mode. The way of rendering can be changed with player `subtitlesShowingMode` option             |
 | `on(event, handler)`       | event: PlaybackEvents, handler: Function | register an event handler for the given type event                                                                   |
 | `once(event, handler)`     | event: PlaybackEvents, handler: Function | register an one-time event handler for the given type event                                                          |
 
