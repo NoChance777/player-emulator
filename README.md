@@ -15,13 +15,14 @@ player.play([
 ]);
 ```
 
-The player's factory method can accept optional config object:
+The player's factory method can accept optional config object. 
+
+\**These options are not relevant for the task itself and were implemented only for debugging purposes.*
+
 | Option\* | Type | Description |
 | ------ | ---- | ----------- |
 |`shouldRender`|boolean| when `true` the player will render pseudo video in console |
-|`subtitlesShowingMode`| `'frame'` or `'permanent'`| set subtitle render mode, in `'frame'` mode subtitles will be displayed after a `showSubtitles` call and cleared for a next frame, in `'permanent'` mode the same subtitles will be rendered until they're cleared by calling `showSubtitles(null)` or other subtitles are provided.
-
-\*These options are not relevant for the task itself and were implemented only for debugging purposes.
+|`subtitlesShowingMode`| `'frame'` or `'permanent'` *(default)*| set subtitle render mode, in `'frame'` mode subtitles will be displayed after a `showSubtitles` call and cleared for a next frame, in `'permanent'` mode the same subtitles will be rendered until they're cleared by calling `showSubtitles(null)` or other subtitles are provided.
 
 Each playlist item has the following structure:
 

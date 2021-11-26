@@ -47,7 +47,7 @@ const createPlaylist = (content) =>
 
 module.exports = ({
   shouldRender = true,
-  subtitlesShowingMode = SubtitleShowingMode.clearAfterRender,
+  subtitlesShowingMode = SubtitleShowingMode.permanent,
 } = {}) => {
   const emitter = new EventEmitter();
   let state = createDefaultState();
