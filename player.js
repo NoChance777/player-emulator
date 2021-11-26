@@ -1,23 +1,22 @@
-const { EOL } = require('os');
-const log = require('log-update');
-const ms = require('parse-ms');
-const EventEmitter = require('events');
-
+import { EOL } from 'os';
+import logUpdate  from 'log-update';
+import ms from 'parse-ms';
+import { EventEmitter } from 'events';
 const FRAME_RATE = 80;
 const SCREEN_WIDTH = 60;
 
-const PlaybackStatus = {
+export const PlaybackStatus = {
   playing: 'playing',
   paused: 'paused',
   stopped: 'stopped',
 };
 
-const PlaybackEvents = {
+export const PlaybackEvents = {
   status: 'status',
   position: 'position',
 };
 
-const SubtitleShowingMode = {
+export const SubtitleShowingMode = {
   clearAfterRender: 'frame',
   permanent: 'permanent',
 };
@@ -45,7 +44,7 @@ const createPlaylist = (content) =>
     { marker: 0, playlist: [] }
   ).playlist;
 
-module.exports = ({
+export default ({
   shouldRender = true,
   subtitlesShowingMode = SubtitleShowingMode.permanent,
 } = {}) => {
@@ -77,7 +76,7 @@ module.exports = ({
 
     const render = (lines) => {
       shouldRender &&
-        log(
+        logUpdate(
           lines
             .map((line) => {
               const pad = (SCREEN_WIDTH + line.length) / 2;
@@ -161,6 +160,3 @@ module.exports = ({
   return api;
 };
 
-module.exports.PlaybackEvents = PlaybackEvents;
-module.exports.PlaybackStatus = PlaybackStatus;
-module.exports.SubtitleShowingMode = SubtitleShowingMode;

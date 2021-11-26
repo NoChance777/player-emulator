@@ -1,4 +1,4 @@
-const createPlayer = require('./player');
+import createPlayer from './player.js';
 const { PlaybackEvents, PlaybackStatus, SubtitleShowingMode } = createPlayer;
 const player = createPlayer();
 
